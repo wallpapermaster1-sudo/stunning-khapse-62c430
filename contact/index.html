@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Contact | Wallpaper Masters Sydney – Free Quote & Enquiry</title>
+
+  <meta name="description" content="Get a free wallpaper quote from Wallpaper Masters Sydney. Call Bruce on 0413 547 040 or submit an enquiry online. Professional wallpaper supply and installation across greater Sydney." />
+  <meta name="keywords" content="wallpaper quote Sydney, contact wallpaper installer Sydney, wallpaper enquiry, Wallpaper Masters contact, free wallpaper quote" />
+  <meta name="author" content="Wallpaper Masters Pty Ltd – Bruce Choi" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Contact | Wallpaper Masters Sydney" />
+  <meta property="og:description" content="Get a free wallpaper quote. Call 0413 547 040 or submit an enquiry online." />
+  <meta property="og:url" content="https://wallpapersydney.com/contact" />
+  <meta property="og:site_name" content="Wallpaper Masters" />
+  <meta property="og:locale" content="en_AU" />
+
+  <link rel="canonical" href="https://wallpapersydney.com/contact" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ivory: #F7F3EC;
+      --ivory-mid: #EDE8DF;
+      --ivory-dark: #DDD6C9;
+      --charcoal: #1C1916;
+      --charcoal-mid: #2A2622;
+      --charcoal-light: #3D3831;
+      --bronze: #A6875D;
+      --bronze-light: #C9AB7C;
+      --bronze-pale: #E0CBA8;
+      --text-secondary: #7A7168;
+      --white: #FEFDFB;
+      --nav-h: 76px;
+      --section-pad: clamp(72px, 10vw, 120px);
+      --side-pad: clamp(24px, 5vw, 64px);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--ivory);
+      color: var(--charcoal);
+      font-size: 16px;
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    .reveal {
+      opacity: 0; transform: translateY(32px);
+      transition: opacity 0.8s cubic-bezier(0.22,1,0.36,1), transform 0.8s cubic-bezier(0.22,1,0.36,1);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+
+    /* NAV */
+    .site-nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: var(--nav-h);
+      background: rgba(247,243,236,0.92);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 var(--side-pad);
+      transition: box-shadow 0.3s ease;
+    }
+    .site-nav.scrolled { box-shadow: 0 1px 0 rgba(166,135,93,0.15); }
+    .nav-brand img { height: 40px; display: block; }
+    .nav-menu { display: flex; gap: 36px; list-style: none; }
+    .nav-menu a {
+      font-family: 'Outfit', sans-serif; font-size: 12.5px; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase; color: var(--charcoal-light);
+      text-decoration: none; position: relative; transition: color 0.25s ease;
+    }
+    .nav-menu a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0;
+      width: 0; height: 1px; background: var(--bronze);
+      transition: width 0.3s cubic-bezier(0.22,1,0.36,1);
+    }
+    .nav-menu a:hover { color: var(--bronze); }
+    .nav-menu a:hover::after { width: 100%; }
+    .nav-menu a.active { color: var(--bronze); }
+    .nav-menu a.active::after { width: 100%; }
+    .nav-quote {
+      font-family: 'Outfit', sans-serif;
+      background: var(--charcoal); color: var(--ivory);
+      padding: 11px 26px; font-size: 12px; font-weight: 500;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      text-decoration: none; transition: all 0.3s ease;
+    }
+    .nav-quote:hover { background: var(--bronze); color: var(--charcoal); }
+    .nav-hamburger {
+      display: none; background: none; border: none; cursor: pointer;
+      width: 32px; height: 24px; position: relative; z-index: 110;
+    }
+    .nav-hamburger span {
+      display: block; width: 100%; height: 2px;
+      background: var(--charcoal); position: absolute; left: 0; transition: all 0.3s ease;
+    }
+    .nav-hamburger span:nth-child(1) { top: 0; }
+    .nav-hamburger span:nth-child(2) { top: 11px; }
+    .nav-hamburger span:nth-child(3) { top: 22px; }
+    .nav-hamburger.active span:nth-child(1) { top: 11px; transform: rotate(45deg); }
+    .nav-hamburger.active span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.active span:nth-child(3) { top: 11px; transform: rotate(-45deg); }
+    .mobile-overlay {
+      display: none; position: fixed; inset: 0; z-index: 105;
+      background: rgba(247,243,236,0.98); backdrop-filter: blur(20px);
+      flex-direction: column; align-items: center; justify-content: center; gap: 28px;
+    }
+    .mobile-overlay.open { display: flex; }
+    .mobile-overlay a {
+      font-family: 'Playfair Display', serif; font-size: 28px; color: var(--charcoal);
+      text-decoration: none; font-weight: 400; letter-spacing: 0.02em;
+      opacity: 0; transform: translateY(16px);
+      transition: opacity 0.4s ease, transform 0.4s ease, color 0.2s ease;
+    }
+    .mobile-overlay.open a { opacity: 1; transform: translateY(0); }
+    .mobile-overlay a:hover { color: var(--bronze); }
+    .mobile-overlay.open a:nth-child(1) { transition-delay: 0.05s; }
+    .mobile-overlay.open a:nth-child(2) { transition-delay: 0.1s; }
+    .mobile-overlay.open a:nth-child(3) { transition-delay: 0.15s; }
+    .mobile-overlay.open a:nth-child(4) { transition-delay: 0.2s; }
+    .mobile-overlay.open a:nth-child(5) { transition-delay: 0.25s; }
+    .mobile-overlay.open a:nth-child(6) { transition-delay: 0.3s; }
+    .mobile-overlay.open a:nth-child(7) { transition-delay: 0.35s; }
+
+    /* PAGE HEADER */
+    .page-header {
+      margin-top: var(--nav-h);
+      padding: clamp(64px,10vw,120px) var(--side-pad) clamp(48px,6vw,80px);
+      text-align: center; position: relative;
+    }
+    .page-header::after {
+      content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+      width: 60px; height: 1px; background: var(--bronze-pale);
+    }
+    .section-label {
+      font-family: 'Outfit', sans-serif; font-size: 11px; font-weight: 600;
+      letter-spacing: 0.22em; text-transform: uppercase; color: var(--bronze);
+      margin-bottom: 18px; display: flex; align-items: center; justify-content: center; gap: 14px;
+    }
+    .section-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(36px,5vw,60px); font-weight: 400;
+      line-height: 1.12; letter-spacing: -0.01em;
+    }
+    .section-heading em { font-style: italic; color: var(--bronze); }
+    .page-header-desc {
+      margin-top: 20px; font-size: 16px; color: var(--text-secondary);
+      max-width: 560px; margin-left: auto; margin-right: auto;
+      line-height: 1.75; font-weight: 300;
+    }
+
+    /* CONTACT LAYOUT */
+    .contact-section {
+      padding: 48px var(--side-pad) var(--section-pad);
+    }
+    .contact-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 1.2fr 1fr;
+      gap: clamp(48px,6vw,80px); align-items: start;
+    }
+
+    /* FORM */
+    .contact-form { display: flex; flex-direction: column; gap: 24px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .form-group { display: flex; flex-direction: column; gap: 8px; }
+    .form-group label {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--text-secondary);
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 300;
+      color: var(--charcoal); background: var(--white);
+      border: 1px solid var(--ivory-dark); padding: 14px 18px;
+      transition: border-color 0.3s ease; outline: none;
+      -webkit-appearance: none; border-radius: 0;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus { border-color: var(--bronze); }
+    .form-group textarea { resize: vertical; min-height: 140px; }
+    .form-group select { cursor: pointer; }
+
+    .form-submit {
+      font-family: 'Outfit', sans-serif;
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--charcoal); color: var(--ivory);
+      padding: 16px 40px; font-size: 12.5px; font-weight: 500;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      border: none; cursor: pointer; transition: all 0.35s ease;
+      align-self: flex-start;
+    }
+    .form-submit:hover { background: var(--bronze); }
+    .form-submit svg { transition: transform 0.3s ease; }
+    .form-submit:hover svg { transform: translateX(3px); }
+
+    .form-success {
+      display: none; padding: 24px; background: var(--white);
+      border: 1px solid var(--bronze-pale); text-align: center;
+    }
+    .form-success.show { display: block; }
+    .form-success h3 {
+      font-family: 'Playfair Display', serif; font-size: 24px;
+      font-weight: 400; color: var(--charcoal); margin-bottom: 8px;
+    }
+    .form-success p { font-size: 15px; color: var(--text-secondary); font-weight: 300; }
+
+    /* SIDEBAR */
+    .contact-sidebar { display: flex; flex-direction: column; gap: 32px; }
+    .sidebar-card {
+      padding: 36px; background: var(--white);
+      border: 1px solid rgba(166,135,93,0.1);
+    }
+    .sidebar-card-label {
+      font-size: 10.5px; font-weight: 600; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--text-secondary); margin-bottom: 16px;
+    }
+    .sidebar-card h3 {
+      font-family: 'Playfair Display', serif; font-size: 22px;
+      font-weight: 400; color: var(--charcoal); margin-bottom: 12px;
+    }
+    .sidebar-card p {
+      font-size: 14.5px; color: var(--text-secondary); line-height: 1.75; font-weight: 300;
+    }
+    .sidebar-card a {
+      color: var(--bronze); text-decoration: none; font-weight: 400;
+      transition: opacity 0.2s;
+    }
+    .sidebar-card a:hover { opacity: 0.7; }
+
+    .sidebar-phone {
+      font-family: 'Playfair Display', serif; font-size: 28px;
+      color: var(--charcoal); text-decoration: none; display: block;
+      margin-bottom: 8px; transition: color 0.2s;
+    }
+    .sidebar-phone:hover { color: var(--bronze); }
+
+    .sidebar-hours-grid { margin-top: 12px; }
+    .sidebar-hours-row {
+      display: flex; justify-content: space-between; padding: 8px 0;
+      border-bottom: 1px solid var(--ivory-mid); font-size: 14px;
+    }
+    .sidebar-hours-row:last-child { border-bottom: none; }
+    .sidebar-hours-day { font-weight: 400; color: var(--charcoal); }
+    .sidebar-hours-time { font-weight: 300; color: var(--text-secondary); }
+
+    /* MAP PLACEHOLDER */
+    .map-section {
+      background: var(--charcoal-mid); height: 400px;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    .map-section iframe {
+      width: 100%; height: 100%; border: 0;
+      filter: grayscale(0.3) contrast(1.05);
+    }
+
+    /* FOOTER */
+    .site-footer {
+      background: var(--charcoal-mid); padding: 72px var(--side-pad) 36px;
+      color: rgba(247,243,236,0.45);
+    }
+    .footer-inner { max-width: 1280px; margin: 0 auto; }
+    .footer-grid {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px; margin-bottom: 56px;
+    }
+    .footer-brand img { height: 36px; margin-bottom: 18px; display: block; }
+    .footer-brand p { font-size: 13.5px; line-height: 1.8; max-width: 300px; font-weight: 300; }
+    .footer-abn { font-size: 11.5px; margin-top: 14px; color: rgba(247,243,236,0.25); }
+    .footer-col h4 {
+      font-size: 10.5px; font-weight: 600; letter-spacing: 0.14em;
+      text-transform: uppercase; color: rgba(247,243,236,0.7); margin-bottom: 18px;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .footer-col a {
+      font-size: 13.5px; color: rgba(247,243,236,0.4); text-decoration: none;
+      transition: color 0.2s; font-weight: 300;
+    }
+    .footer-col a:hover { color: var(--bronze-light); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding-top: 28px; font-size: 12px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .footer-bottom a { color: rgba(247,243,236,0.35); text-decoration: none; }
+
+    @media (max-width: 1024px) {
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 36px; }
+    }
+    @media (max-width: 768px) {
+      .nav-menu { display: none; }
+      .nav-quote { display: none; }
+      .nav-hamburger { display: block; }
+      .contact-inner { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .map-section { height: 300px; }
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .page-header > * {
+      opacity: 0; animation: fadeIn 0.7s cubic-bezier(0.22,1,0.36,1) forwards;
+    }
+    .page-header > :nth-child(1) { animation-delay: 0.1s; }
+    .page-header > :nth-child(2) { animation-delay: 0.2s; }
+    .page-header > :nth-child(3) { animation-delay: 0.35s; }
+  </style>
+</head>
+<body>
+
+<nav class="site-nav" aria-label="Main navigation">
+  <a href="/" class="nav-brand" aria-label="Wallpaper Masters Home">
+    <img src="https://www.wallpapermasters.com.au/_next/image?url=%2Ftitle_logo_cream.png&w=640&q=75" alt="Wallpaper Masters Sydney Logo" />
+  </a>
+  <ul class="nav-menu" role="list">
+    <li><a href="/patterns">Patterns</a></li>
+    <li><a href="/gallery">Gallery</a></li>
+    <li><a href="/mural">Murals</a></li>
+    <li><a href="/tools">Tools</a></li>
+    <li><a href="/showroom">Showroom</a></li>
+    <li><a href="/about">About</a></li>
+  </ul>
+  <a href="/contact" class="nav-quote">Free Quote</a>
+  <button class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-overlay" id="mobileMenu" role="dialog" aria-label="Navigation menu">
+  <a href="/patterns">Patterns</a>
+  <a href="/gallery">Gallery</a>
+  <a href="/mural">Murals</a>
+  <a href="/tools">Tools</a>
+  <a href="/showroom">Showroom</a>
+  <a href="/about">About</a>
+  <a href="/contact">Free Quote</a>
+</div>
+
+<div class="page-header">
+  <p class="section-label">Get in Touch</p>
+  <h1 class="section-heading">Request a <em>Free Quote</em></h1>
+  <p class="page-header-desc">
+    Tell us about your project and we'll get back to you with a quote within hours.
+    Or call Bruce directly &mdash; we're happy to help.
+  </p>
+</div>
+
+<section class="contact-section" aria-label="Contact form and details">
+  <div class="contact-inner">
+    <div class="reveal">
+      <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="contact-form" id="contactForm">
+        <input type="hidden" name="form-name" value="contact" />
+        <p style="display:none"><label>Don't fill this: <input name="bot-field" /></label></p>
+        <input type="hidden" name="subject" value="New enquiry from wallpapersydney.com" />
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name" placeholder="Your name" required />
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" placeholder="04XX XXX XXX" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" placeholder="your@email.com" required />
+        </div>
+
+        <div class="form-group">
+          <label for="project-type">Project Type</label>
+          <select id="project-type" name="project-type">
+            <option value="" disabled selected>Select your project type</option>
+            <option value="feature-wall">Feature Wall</option>
+            <option value="full-room">Full Room Installation</option>
+            <option value="custom-mural">Custom Mural</option>
+            <option value="commercial">Commercial Project</option>
+            <option value="supply-only">Supply Only</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="message">Tell Us About Your Project</label>
+          <textarea id="message" name="message" placeholder="Describe your project, room dimensions, preferred style, or any questions you have..." required></textarea>
+        </div>
+
+        <button type="submit" class="form-submit">
+          Send Enquiry
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+        </button>
+      </form>
+
+      <div class="form-success" id="formSuccess">
+        <h3>Thank You!</h3>
+        <p>Your enquiry has been sent. Bruce will get back to you within a few hours.</p>
+      </div>
+    </div>
+
+    <div class="contact-sidebar reveal reveal-delay-2">
+      <div class="sidebar-card">
+        <div class="sidebar-card-label">Call Us Directly</div>
+        <a href="tel:+61413547040" class="sidebar-phone">0413 547 040</a>
+        <p>Speak directly with Bruce for immediate assistance with your wallpaper project.</p>
+      </div>
+
+      <div class="sidebar-card">
+        <div class="sidebar-card-label">Visit Our Showroom</div>
+        <h3>Kellyville Ridge</h3>
+        <p>
+          <a href="https://g.page/wallpapermasters" target="_blank" rel="noopener">1 Vinegar Hill Rd<br>Kellyville Ridge NSW 2155</a>
+        </p>
+        <div class="sidebar-hours-grid">
+          <div class="sidebar-hours-row">
+            <span class="sidebar-hours-day">Monday &ndash; Friday</span>
+            <span class="sidebar-hours-time">9 am &ndash; 5 pm</span>
+          </div>
+          <div class="sidebar-hours-row">
+            <span class="sidebar-hours-day">Saturday</span>
+            <span class="sidebar-hours-time">9 am &ndash; 5 pm</span>
+          </div>
+          <div class="sidebar-hours-row">
+            <span class="sidebar-hours-day">Sunday</span>
+            <span class="sidebar-hours-time">9 am &ndash; 5 pm</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-card">
+        <div class="sidebar-card-label">Email</div>
+        <p><a href="mailto:info@wallpapermasters.com.au">info@wallpapermasters.com.au</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="map-section">
+  <iframe
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3316.4!2d150.9319!3d-33.6982!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2s1+Vinegar+Hill+Rd%2C+Kellyville+Ridge+NSW+2155!5e0!3m2!1sen!2sau!4v1"
+    allowfullscreen=""
+    loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade"
+    title="Wallpaper Masters location map"
+  ></iframe>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="https://www.wallpapermasters.com.au/_next/image?url=%2Ftitle_logo_cream.png&w=640&q=75" alt="Wallpaper Masters" />
+        <p>
+          <strong style="color: rgba(247,243,236,0.75);">Wallpaper Masters Pty Ltd</strong><br>
+          Sydney's trusted wallpaper supplier and installer since 2006. Premium patterns, expert installation,
+          and custom murals across greater Sydney.
+        </p>
+        <p class="footer-abn">ABN: 25 491 108 839 &middot; Est. 2006</p>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="/patterns">Wallpaper Supply</a></li>
+          <li><a href="/gallery">Gallery</a></li>
+          <li><a href="/mural">Custom Murals</a></li>
+          <li><a href="/tools">Tools</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="/about">About Us</a></li>
+          <li><a href="/showroom">Showroom</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="tel:+61413547040">0413 547 040</a></li>
+          <li><a href="https://g.page/wallpapermasters" target="_blank" rel="noopener">Google Maps</a></li>
+          <li><a href="/showroom">1 Vinegar Hill Rd<br>Kellyville Ridge NSW 2155</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Wallpaper Masters Pty Ltd (Bruce Choi). All rights reserved.</span>
+      <span>ABN: 25 491 108 839 &middot; Kellyville Ridge NSW 2155 &middot; <a href="tel:+61413547040">0413 547 040</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  var form = document.getElementById('contactForm');
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    var data = new URLSearchParams(new FormData(form)).toString();
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: data
+    }).then(function(res) {
+      if (res.ok) {
+        form.style.display = 'none';
+        document.getElementById('formSuccess').classList.add('show');
+      }
+    });
+  });
+
+  var hamburger = document.querySelector('.nav-hamburger');
+  var mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', function() {
+    var isOpen = mobileMenu.classList.contains('open');
+    mobileMenu.classList.toggle('open');
+    hamburger.classList.toggle('active');
+    hamburger.setAttribute('aria-expanded', String(!isOpen));
+    document.body.style.overflow = isOpen ? '' : 'hidden';
+  });
+  mobileMenu.querySelectorAll('a').forEach(function(link) {
+    link.addEventListener('click', function() {
+      mobileMenu.classList.remove('open');
+      hamburger.classList.remove('active');
+      hamburger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    });
+  });
+
+  var nav = document.querySelector('.site-nav');
+  window.addEventListener('scroll', function() {
+    if (window.scrollY > 20) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+  }, { passive: true });
+
+  var revealObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(function(el) { revealObserver.observe(el); });
+</script>
+
+</body>
+</html>
