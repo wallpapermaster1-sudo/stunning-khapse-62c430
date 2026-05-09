@@ -981,6 +981,85 @@
       .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
     }
 
+    /* ── PUBLISH BUTTON ── */
+    .publish-fab {
+      display: none;
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      z-index: 200;
+      background: var(--charcoal);
+      color: var(--ivory);
+      border: none;
+      padding: 16px 32px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow: 0 8px 32px rgba(28,25,22,0.25);
+      transition: all 0.35s ease;
+      align-items: center;
+      gap: 10px;
+    }
+    .publish-fab.visible { display: inline-flex; }
+    .publish-fab:hover { background: var(--bronze); color: var(--charcoal); }
+    .publish-fab:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      background: var(--charcoal-light);
+    }
+    .publish-fab svg {
+      width: 18px;
+      height: 18px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .publish-fab .spinner {
+      width: 18px;
+      height: 18px;
+      border: 2px solid rgba(247,243,236,0.3);
+      border-top-color: var(--ivory);
+      border-radius: 50%;
+      animation: publishSpin 0.6s linear infinite;
+      display: none;
+    }
+    .publish-fab.loading .spinner { display: block; }
+    .publish-fab.loading svg.pub-icon { display: none; }
+    .publish-fab.success { background: #3a7d44; }
+    .publish-fab.error { background: #a63d40; }
+
+    @keyframes publishSpin {
+      to { transform: rotate(360deg); }
+    }
+
+    .publish-toast {
+      display: none;
+      position: fixed;
+      bottom: 96px;
+      right: 32px;
+      z-index: 201;
+      background: var(--charcoal);
+      color: var(--ivory);
+      padding: 14px 24px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      box-shadow: 0 8px 24px rgba(28,25,22,0.2);
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    .publish-toast.show {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     /* ── LOAD ANIMATION ── */
     @keyframes heroFadeIn {
       from { opacity: 0; transform: translateY(24px); }
@@ -1488,6 +1567,14 @@
   </div>
 </div>
 
+<!-- PUBLISH BUTTON (admin) -->
+<button class="publish-fab" id="publishBtn" aria-label="Publish site">
+  <svg class="pub-icon" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+  <span class="spinner"></span>
+  <span class="pub-label">Publish</span>
+</button>
+<div class="publish-toast" id="publishToast"></div>
+
 <!-- FOOTER -->
 <footer class="site-footer">
   <div class="footer-inner">
@@ -1587,6 +1674,66 @@
   document.querySelectorAll('.reveal').forEach(function(el) {
     revealObserver.observe(el);
   });
+
+  (function() {
+    var fab = document.getElementById('publishBtn');
+    var toast = document.getElementById('publishToast');
+
+    function showPublishBtn() {
+      if (window.location.hash === '#admin' || window.location.search.indexOf('admin') !== -1) {
+        fab.classList.add('visible');
+      }
+    }
+    showPublishBtn();
+    window.addEventListener('hashchange', showPublishBtn);
+
+    function showToast(msg, duration) {
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(function() { toast.classList.remove('show'); }, duration || 3000);
+    }
+
+    fab.addEventListener('click', function() {
+      if (fab.disabled) return;
+
+      if (!confirm('사이트를 지금 바로 배포(Publish)하시겠습니까?')) return;
+
+      fab.disabled = true;
+      fab.classList.add('loading');
+      fab.querySelector('.pub-label').textContent = 'Publishing...';
+
+      fetch('/api/publish', { method: 'POST' })
+        .then(function(res) { return res.json().then(function(d) { return { ok: res.ok, data: d }; }); })
+        .then(function(result) {
+          fab.classList.remove('loading');
+          if (result.ok) {
+            fab.classList.add('success');
+            fab.querySelector('.pub-label').textContent = 'Published!';
+            showToast('배포가 시작되었습니다. 잠시 후 사이트가 업데이트됩니다.');
+          } else {
+            fab.classList.add('error');
+            fab.querySelector('.pub-label').textContent = 'Failed';
+            showToast('배포 실패: ' + (result.data.error || 'Unknown error'), 4000);
+          }
+          setTimeout(function() {
+            fab.disabled = false;
+            fab.classList.remove('success', 'error');
+            fab.querySelector('.pub-label').textContent = 'Publish';
+          }, 4000);
+        })
+        .catch(function(err) {
+          fab.classList.remove('loading');
+          fab.classList.add('error');
+          fab.querySelector('.pub-label').textContent = 'Error';
+          showToast('네트워크 오류가 발생했습니다.', 4000);
+          setTimeout(function() {
+            fab.disabled = false;
+            fab.classList.remove('error');
+            fab.querySelector('.pub-label').textContent = 'Publish';
+          }, 4000);
+        });
+    });
+  })();
 
   (function() {
     var slideshow = document.querySelector('.about-slideshow');
