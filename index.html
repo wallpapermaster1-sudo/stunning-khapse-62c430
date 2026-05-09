@@ -149,7 +149,7 @@
       --bronze-pale: #E0CBA8;
       --text-secondary: #7A7168;
       --white: #FEFDFB;
-      --nav-h: 76px;
+      --nav-h: 136px;
       --section-pad: clamp(72px, 10vw, 120px);
       --side-pad: clamp(24px, 5vw, 64px);
     }
@@ -188,13 +188,13 @@
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       display: flex; align-items: center; justify-content: space-between;
-      padding: 0 var(--side-pad);
+      padding: 8px var(--side-pad);
       transition: box-shadow 0.3s ease;
     }
     .site-nav.scrolled {
       box-shadow: 0 1px 0 rgba(166,135,93,0.15);
     }
-    .nav-brand img { height: 40px; display: block; }
+    .nav-brand img { width: 80px; height: 120px; display: block; object-fit: contain; }
     .nav-menu { display: flex; gap: 36px; list-style: none; }
     .nav-menu a {
       font-family: 'Outfit', sans-serif;
@@ -359,11 +359,13 @@
     .hero-right img {
       width: 100%; height: 100%;
       object-fit: cover; display: block;
+      filter: saturate(0.7) contrast(0.95) sepia(0.2) brightness(0.75);
     }
     .hero-right::after {
       content: ''; position: absolute; inset: 0;
-      background: linear-gradient(135deg, rgba(28,25,22,0.15) 0%, transparent 60%);
+      background: linear-gradient(135deg, rgba(166,135,93,0.28) 0%, rgba(28,25,22,0.32) 40%, rgba(247,243,236,0.12) 100%);
       pointer-events: none;
+      mix-blend-mode: multiply;
     }
     .hero-badge {
       position: absolute; bottom: 40px; left: 40px; z-index: 2;
@@ -443,6 +445,57 @@
     }
     .about-img-main {
       width: 100%; aspect-ratio: 3/4; object-fit: cover; display: block;
+    }
+
+    /* ── ABOUT SLIDESHOW ── */
+    .about-slideshow {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 3/4;
+      overflow: hidden;
+    }
+    .about-slideshow img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .about-slideshow img.slide-active {
+      opacity: 1;
+    }
+    .slideshow-dots {
+      position: absolute;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+      z-index: 2;
+    }
+    .slideshow-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: rgba(247,243,236,0.4);
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+    .slideshow-dot.dot-active {
+      background: var(--bronze-light);
+      transform: scale(1.25);
+    }
+    .about-slideshow::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 60px;
+      background: linear-gradient(to top, rgba(28,25,22,0.3), transparent);
+      pointer-events: none;
+      z-index: 1;
     }
     .about-img-accent {
       position: absolute; bottom: -32px; right: -32px;
@@ -729,6 +782,8 @@
     .showroom-info-val a:hover { color: var(--bronze-light); }
     .showroom-img-wrap {
       position: relative;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
     }
     .showroom-img-wrap img {
       width: 100%; height: 100%; object-fit: cover; display: block;
@@ -918,12 +973,91 @@
       .reviews-grid { grid-template-columns: 1fr; }
 
       .showroom-inner { grid-template-columns: 1fr; }
-      .showroom-img-wrap { height: 300px; }
+      .showroom-img-wrap { height: 400px; }
 
       .why-grid { grid-template-columns: 1fr; }
 
       .footer-grid { grid-template-columns: 1fr; gap: 32px; }
       .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+    }
+
+    /* ── PUBLISH BUTTON ── */
+    .publish-fab {
+      display: none;
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      z-index: 200;
+      background: var(--charcoal);
+      color: var(--ivory);
+      border: none;
+      padding: 16px 32px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow: 0 8px 32px rgba(28,25,22,0.25);
+      transition: all 0.35s ease;
+      align-items: center;
+      gap: 10px;
+    }
+    .publish-fab.visible { display: inline-flex; }
+    .publish-fab:hover { background: var(--bronze); color: var(--charcoal); }
+    .publish-fab:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      background: var(--charcoal-light);
+    }
+    .publish-fab svg {
+      width: 18px;
+      height: 18px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .publish-fab .spinner {
+      width: 18px;
+      height: 18px;
+      border: 2px solid rgba(247,243,236,0.3);
+      border-top-color: var(--ivory);
+      border-radius: 50%;
+      animation: publishSpin 0.6s linear infinite;
+      display: none;
+    }
+    .publish-fab.loading .spinner { display: block; }
+    .publish-fab.loading svg.pub-icon { display: none; }
+    .publish-fab.success { background: #3a7d44; }
+    .publish-fab.error { background: #a63d40; }
+
+    @keyframes publishSpin {
+      to { transform: rotate(360deg); }
+    }
+
+    .publish-toast {
+      display: none;
+      position: fixed;
+      bottom: 96px;
+      right: 32px;
+      z-index: 201;
+      background: var(--charcoal);
+      color: var(--ivory);
+      padding: 14px 24px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      box-shadow: 0 8px 24px rgba(28,25,22,0.2);
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    .publish-toast.show {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
     }
 
     /* ── LOAD ANIMATION ── */
@@ -947,7 +1081,7 @@
 <!-- NAVIGATION -->
 <nav class="site-nav" aria-label="Main navigation">
   <a href="/" class="nav-brand" aria-label="Wallpaper Masters Home">
-    <img src="https://www.wallpapermasters.com.au/_next/image?url=%2Ftitle_logo_cream.png&w=640&q=75" alt="Wallpaper Masters Sydney Logo" />
+    <img src="images/wallpaper-masters-logo.png" alt="Wallpaper Masters Sydney Logo" />
   </a>
   <ul class="nav-menu" role="list">
     <li><a href="/patterns">Patterns</a></li>
@@ -1007,8 +1141,8 @@
   </div>
   <div class="hero-right">
     <img
-      src="https://www.wallpapermasters.com.au/_next/image?url=%2Fmain_page%2Fhero%2F20230522_124212.jpg&w=3840&q=75"
-      alt="Wallpaper installation in a Sydney home by Wallpaper Masters"
+      src="images/wallpaper-master-bruce.png"
+      alt="Wallpaper Master Bruce – professional wallpaper installation in Sydney"
     />
     <div class="hero-badge">
       <div>
@@ -1060,12 +1194,26 @@
       </div>
     </div>
     <div class="about-visual reveal reveal-delay-2">
-      <img
-        class="about-img-main"
-        src="https://www.wallpapermasters.com.au/_next/image?url=%2Fmain_page%2Finstallation%2F20250106_135648.jpg&w=1200&q=75"
-        alt="Wallpaper Masters professional installation team at work in a Sydney home"
-        loading="lazy"
-      />
+      <div class="about-slideshow">
+        <img class="slide-active" src="images/bedroom2.jpg" alt="Elegant bedroom wallpaper installation by Wallpaper Masters Sydney" loading="lazy" />
+        <img src="images/livingroom1.jpg" alt="Living room feature wall by Wallpaper Masters" loading="lazy" />
+        <img src="images/20230109_204338.jpg" alt="Professional wallpaper work by Wallpaper Masters" loading="lazy" />
+        <img src="images/20240912_105841.jpg" alt="Wallpaper Masters installation project" loading="lazy" />
+        <img src="images/20250424_101919.jpg" alt="Wallpaper Masters Sydney home transformation" loading="lazy" />
+        <img src="images/20251028_182743.jpg" alt="Custom wallpaper installation in Sydney" loading="lazy" />
+        <img src="images/scaffolding-staircase3.jpg" alt="Staircase wallpaper installation by Wallpaper Masters" loading="lazy" />
+        <img src="images/shop1.JPG" alt="Wallpaper Masters showroom in Kellyville Ridge" loading="lazy" />
+        <div class="slideshow-dots">
+          <button class="slideshow-dot dot-active" aria-label="Slide 1"></button>
+          <button class="slideshow-dot" aria-label="Slide 2"></button>
+          <button class="slideshow-dot" aria-label="Slide 3"></button>
+          <button class="slideshow-dot" aria-label="Slide 4"></button>
+          <button class="slideshow-dot" aria-label="Slide 5"></button>
+          <button class="slideshow-dot" aria-label="Slide 6"></button>
+          <button class="slideshow-dot" aria-label="Slide 7"></button>
+          <button class="slideshow-dot" aria-label="Slide 8"></button>
+        </div>
+      </div>
       <div class="about-years-badge">
         <div class="about-years-num">18+</div>
         <div class="about-years-text">Years in Sydney</div>
@@ -1320,9 +1468,14 @@
     </div>
     <div class="showroom-img-wrap">
       <img
-        src="https://www.wallpapermasters.com.au/_next/image?url=%2Fmain_page%2Fvisit%2Fshowroom.jpg&w=1200&q=75"
-        alt="Wallpaper Masters showroom interior at Kellyville Ridge NSW displaying 2000+ wallpaper samples"
+        src="images/sydney-showroom.jpg"
+        alt="Wallpaper Masters Sydney Showroom at Kellyville Ridge NSW"
         itemprop="image"
+        loading="lazy"
+      />
+      <img
+        src="images/melbourne-showroom.jpg"
+        alt="Wallpaper Masters Melbourne Showroom at Williams Landing VIC"
         loading="lazy"
       />
     </div>
@@ -1414,12 +1567,20 @@
   </div>
 </div>
 
+<!-- PUBLISH BUTTON (admin) -->
+<button class="publish-fab" id="publishBtn" aria-label="Publish site">
+  <svg class="pub-icon" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+  <span class="spinner"></span>
+  <span class="pub-label">Publish</span>
+</button>
+<div class="publish-toast" id="publishToast"></div>
+
 <!-- FOOTER -->
 <footer class="site-footer">
   <div class="footer-inner">
     <div class="footer-grid">
       <div class="footer-brand">
-        <img src="https://www.wallpapermasters.com.au/_next/image?url=%2Ftitle_logo_cream.png&w=640&q=75" alt="Wallpaper Masters" />
+        <img src="images/wallpaper-masters-logo.png" alt="Wallpaper Masters" />
         <p>
           <strong style="color: rgba(247,243,236,0.75);">Wallpaper Masters Pty Ltd</strong><br>
           Sydney's trusted wallpaper supplier and installer since 2006. Premium patterns, expert installation,
@@ -1513,6 +1674,94 @@
   document.querySelectorAll('.reveal').forEach(function(el) {
     revealObserver.observe(el);
   });
+
+  (function() {
+    var fab = document.getElementById('publishBtn');
+    var toast = document.getElementById('publishToast');
+
+    function showPublishBtn() {
+      if (window.location.hash === '#admin' || window.location.search.indexOf('admin') !== -1) {
+        fab.classList.add('visible');
+      }
+    }
+    showPublishBtn();
+    window.addEventListener('hashchange', showPublishBtn);
+
+    function showToast(msg, duration) {
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(function() { toast.classList.remove('show'); }, duration || 3000);
+    }
+
+    fab.addEventListener('click', function() {
+      if (fab.disabled) return;
+
+      if (!confirm('사이트를 지금 바로 배포(Publish)하시겠습니까?')) return;
+
+      fab.disabled = true;
+      fab.classList.add('loading');
+      fab.querySelector('.pub-label').textContent = 'Publishing...';
+
+      fetch('/api/publish', { method: 'POST' })
+        .then(function(res) { return res.json().then(function(d) { return { ok: res.ok, data: d }; }); })
+        .then(function(result) {
+          fab.classList.remove('loading');
+          if (result.ok) {
+            fab.classList.add('success');
+            fab.querySelector('.pub-label').textContent = 'Published!';
+            showToast('배포가 시작되었습니다. 잠시 후 사이트가 업데이트됩니다.');
+          } else {
+            fab.classList.add('error');
+            fab.querySelector('.pub-label').textContent = 'Failed';
+            showToast('배포 실패: ' + (result.data.error || 'Unknown error'), 4000);
+          }
+          setTimeout(function() {
+            fab.disabled = false;
+            fab.classList.remove('success', 'error');
+            fab.querySelector('.pub-label').textContent = 'Publish';
+          }, 4000);
+        })
+        .catch(function(err) {
+          fab.classList.remove('loading');
+          fab.classList.add('error');
+          fab.querySelector('.pub-label').textContent = 'Error';
+          showToast('네트워크 오류가 발생했습니다.', 4000);
+          setTimeout(function() {
+            fab.disabled = false;
+            fab.classList.remove('error');
+            fab.querySelector('.pub-label').textContent = 'Publish';
+          }, 4000);
+        });
+    });
+  })();
+
+  (function() {
+    var slideshow = document.querySelector('.about-slideshow');
+    if (!slideshow) return;
+    var slides = slideshow.querySelectorAll('img');
+    var dots = slideshow.querySelectorAll('.slideshow-dot');
+    var current = 0;
+    var total = slides.length;
+    var interval = 4000;
+
+    function goTo(idx) {
+      slides[current].classList.remove('slide-active');
+      dots[current].classList.remove('dot-active');
+      current = idx;
+      slides[current].classList.add('slide-active');
+      dots[current].classList.add('dot-active');
+    }
+
+    var timer = setInterval(function() { goTo((current + 1) % total); }, interval);
+
+    dots.forEach(function(dot, i) {
+      dot.addEventListener('click', function() {
+        clearInterval(timer);
+        goTo(i);
+        timer = setInterval(function() { goTo((current + 1) % total); }, interval);
+      });
+    });
+  })();
 </script>
 
 </body>
